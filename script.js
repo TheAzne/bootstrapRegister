@@ -8,7 +8,7 @@ let passw = /[A-Z]/g;
 
 form.addEventListener("submit", (e) => {
   let messages = [];
-
+  e.preventDefault();
   if (fullName.value === "" || fullName.value == null) {
     messages.push("Full name is required");
   }
@@ -30,16 +30,12 @@ form.addEventListener("submit", (e) => {
     email.focus();
   }
 
-  var passwV = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-  if (!passwV.test(password.value)) {
-    messages.push(
-      "Password needs to be: 1 number, 1 lowercase, 1 uppercase, at least six characters"
-    );
+  if (password.value.length <= 8) {
+    messages.push("Password needs to at least 8 characters");
     password.focus();
   }
 
   if (messages.length > 0) {
-    e.preventDefault();
     errorElement.innerText = messages.join("\n ");
   }
 });
